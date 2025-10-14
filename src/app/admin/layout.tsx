@@ -1,4 +1,4 @@
-import { Nav, NavLink } from "../components/nav";
+import { Nav, NavLink } from "../../components/nav";
 
 
 export default function AdminLayout( {
