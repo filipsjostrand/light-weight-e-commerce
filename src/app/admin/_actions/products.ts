@@ -17,9 +17,11 @@ const addSchema = z.object({
     image: imageSchema.refine(file => file.size > 0, "Required"),
 })
 
-export type AddProductFormState = {
-    errors?: Record<string, string[]>
-}
+// export type AddProductFormState = {
+//     errors?: Record<string, string[]>
+// }
+
+
 
 export async function addProduct(
     prevState: AddProductFormState,
@@ -52,6 +54,61 @@ export async function addProduct(
     })
 
     redirect("/admin/products")
+}
+
+const editSchema = addSchema.extend({
+  file: fileSchema.optional(),
+  image: imageSchema.optional(),
+})
+
+
+export async function updateProduct(
+  id: string,
+  prevState: unknown,
+  formData: FormData
+) {
+  const result = editSchema.safeParse(Object.fromEntries(formData.entries()))
+  if (result.success === false) {
+    return result.error.formErrors.fieldErrors
+  }
+
+  const data = result.data
+  const product = await db.product.findUnique({ where: { id } })
+
+  if (product == null) return notFound()
+
+  let filePath = product.filePath
+  if (data.file != null && data.file.size > 0) {
+    await fs.unlink(product.filePath)
+    filePath = `products/${crypto.randomUUID()}-${data.file.name}`
+    await fs.writeFile(filePath, Buffer.from(await data.file.arrayBuffer()))
+  }
+
+  let imagePath = product.imagePath
+  if (data.image != null && data.image.size > 0) {
+    await fs.unlink(`public${product.imagePath}`)
+    imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`
+    await fs.writeFile(
+      `public${imagePath}`,
+      Buffer.from(await data.image.arrayBuffer())
+    )
+  }
+
+  await db.product.update({
+    where: { id },
+    data: {
+      name: data.name,
+      description: data.description,
+      priceInCents: data.priceInCents,
+      filePath,
+      imagePath,
+    },
+  })
+
+  revalidatePath("/")
+  revalidatePath("/products")
+
+  redirect("/admin/products")
 }
 
 export async function toggleProductAvailability(
