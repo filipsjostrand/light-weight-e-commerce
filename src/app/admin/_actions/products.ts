@@ -17,20 +17,12 @@ const addSchema = z.object({
     image: imageSchema.refine(file => file.size > 0, "Required"),
 })
 
-// export type AddProductFormState = {
-//     errors?: Record<string, string[]>
-// }
-
-
-
-export async function addProduct(
-    prevState: AddProductFormState,
-    formData: FormData
-): Promise<AddProductFormState> {
+  export async function addProduct(prevState: unknown, formData: FormData) {
     const result = addSchema.safeParse(Object.fromEntries(formData.entries()))
     if (result.success === false) {
-        return { errors: result.error.formErrors.fieldErrors }
+      return result.error.formErrors.fieldErrors
     }
+
 
     const data = result.data
 
@@ -52,6 +44,9 @@ export async function addProduct(
             imagePath,
         },
     })
+
+    revalidatePath("/")
+    revalidatePath("/products")
 
     redirect("/admin/products")
 }
@@ -118,6 +113,10 @@ export async function toggleProductAvailability(
 
     await db.product.update({ where: { id }, data: {
         isAvailableForPurchase } })
+
+    revalidatePath("/")
+    revalidatePath("/products")
+
 }
 
 export async function deleteProduct(id: string) {
