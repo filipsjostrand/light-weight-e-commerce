@@ -4,12 +4,12 @@ https://www.youtube.com/watch?v=iqrgggs0Qk0&list=PLZlA0Gpn_vH98uzFzak6aFNKinB-lr
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 Libraries (libs)/Platforms used:<br>
-TS (TypeScript - safer javascript)<br>
-Prisma (database)<br>
-Tailwind (automated CSS)<br>
-Shadcn (automated HTML-CSS-JavaScript-components)<br>
-Stripe (purchase)<br>
-Resend (sending email)<br>
+- TS (TypeScript - safer javascript)<br>
+- Prisma (database)<br>
+- Tailwind (automated CSS)<br>
+- Shadcn (automated HTML-CSS-JavaScript-components)<br>
+- Stripe (purchase)<br>
+- Resend (sending email)<br>
 
 ## Getting Started
 
