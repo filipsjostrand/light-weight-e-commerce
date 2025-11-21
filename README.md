@@ -1,4 +1,15 @@
+This project is an updated version (originally from webdevsimplified:) of "Full Stack Ecommerce Store With Admin Dashboard From Scratch - Next.js, Prisma, Stripe, Tailwind", 
+https://www.youtube.com/watch?v=iqrgggs0Qk0&list=PLZlA0Gpn_vH98uzFzak6aFNKinB-lrE9X&index=1
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+Libraries (libs)/Platforms used:
+TS (TypeScript - safer javascript)
+Prisma (database)
+Tailwind (automated CSS)
+Shadcn (automated HTML-CSS-JavaScript-components)
+Stripe (purchase)
+Resend (sending email)
 
 ## Getting Started
 
