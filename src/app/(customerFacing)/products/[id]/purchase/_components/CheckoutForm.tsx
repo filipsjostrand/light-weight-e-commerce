@@ -1,6 +1,6 @@
 "use client"
 
-import { userOrderExists } from "../../../../../../app/actions/orders"
+import { userOrderExists } from "../../../../../actions/orders"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -86,6 +86,7 @@ function Form({
 
     setIsLoading(true)
 
+    // Avoid order duplicaates
     const orderExists = await userOrderExists(email, productId)
 
     if (orderExists) {
@@ -96,6 +97,7 @@ function Form({
       return
     }
 
+    //Where customer is "sent" after a purchase:
     stripe
       .confirmPayment({
         elements,
