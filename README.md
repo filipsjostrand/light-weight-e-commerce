@@ -8,8 +8,8 @@ Libraries (libs)/Platforms used:<br>
 - Prisma (database)<br>
 - Tailwind (automated CSS)<br>
 - Shadcn (automated HTML-CSS-JavaScript-components)<br>
-- Stripe (purchase)<br>
-- Resend (sending email)<br>
+- Stripe (purchase plattform)<br>
+- Resend (sending emails)<br>
 
 ## Getting Started
 
